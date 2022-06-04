@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import InputForm from "../../atoms/InputForm";
+import Spacer from "../../atoms/Spacer";
 
 const LoginForm = () => {
   return (
@@ -10,6 +11,7 @@ const LoginForm = () => {
         width="400px"
         height="56px"
       />
+      <Spacer size={16} />
       <InputForm
         placeholder="비밀번호를 입력하세요."
         width="400px"
