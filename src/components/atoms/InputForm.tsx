@@ -6,10 +6,11 @@ type InputFormProps = {
   height: string;
   tabIndex?: number;
   type?: string;
+  autoComplete?: string;
 };
 
 const InputForm = (props: InputFormProps) => {
-  const { placeholder, width, height, tabIndex, type } = props;
+  const { placeholder, width, height, tabIndex, type, autoComplete } = props;
   return (
     <Input
       tabIndex={tabIndex}
@@ -19,6 +20,7 @@ const InputForm = (props: InputFormProps) => {
       height={height}
       spellCheck={false}
       type={type}
+      autoComplete={autoComplete}
     />
   );
 };

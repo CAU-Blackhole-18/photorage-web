@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../atoms/Button";
 import CheckBox from "../../atoms/CheckBox";
@@ -7,40 +8,53 @@ import Facebook from "/image/btn_facebook.png";
 import Instagram from "/image/btn_instagram.png";
 import Kakao from "/image/btn_kakao.png";
 import Naver from "/image/btn_naver.png";
+import Google from "/image/btn_google.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const LoginForm = () => {
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   return (
     <Container>
+      <ExitIcon icon={faXmark} />
       <Title>로그인</Title>
-      <InputForm
-        placeholder="이메일을 입력하세요."
-        width="400px"
-        height="56px"
-      />
-      <Spacer size={16} />
-      <InputForm
-        placeholder="비밀번호를 입력하세요."
-        width="400px"
-        height="56px"
-        type="password"
-      />
-      <FirstActionWrapper>
-        <LoginMaintainWrapper>
-          <CheckBox checked={false} />
-          <CheckBoxTitle>로그인 유지</CheckBoxTitle>
-        </LoginMaintainWrapper>
-        <Button backgroundColor="transparent">
-          <ButtonGreyContent>비밀번호 찾기</ButtonGreyContent>
+      <form>
+        <InputForm
+          placeholder="이메일을 입력하세요."
+          width="400px"
+          height="56px"
+          tabIndex={1}
+        />
+        <Spacer size={16} />
+        <InputForm
+          placeholder="비밀번호를 입력하세요."
+          width="400px"
+          height="56px"
+          type="password"
+          autoComplete={"off"}
+          tabIndex={2}
+        />
+        <FirstActionWrapper>
+          <LoginMaintainWrapper>
+            <CheckBox
+              checked={isChecked}
+              onChange={() => setIsChecked((prev) => !prev)}
+            />
+            <CheckBoxTitle>로그인 유지</CheckBoxTitle>
+          </LoginMaintainWrapper>
+          <Button backgroundColor="transparent">
+            <ButtonGreyContent>비밀번호 찾기</ButtonGreyContent>
+          </Button>
+        </FirstActionWrapper>
+        <Button
+          backgroundColor="#000000"
+          width="400px"
+          height="60px"
+          radius="15px"
+        >
+          <ButtonWhiteContent>이메일로 로그인</ButtonWhiteContent>
         </Button>
-      </FirstActionWrapper>
-      <Button
-        backgroundColor="#000000"
-        width="400px"
-        height="60px"
-        radius="15px"
-      >
-        <ButtonWhiteContent>이메일로 로그인</ButtonWhiteContent>
-      </Button>
+      </form>
       <SecondActionWrapper>
         <Button backgroundColor="transparent">
           <ButtonBlackContent>회원가입</ButtonBlackContent>
@@ -51,10 +65,11 @@ const LoginForm = () => {
       </SecondActionWrapper>
       <SimpleLogin>간편로그인</SimpleLogin>
       <OAuthWrapper>
-        <Icon src={Naver} />
-        <Icon src={Kakao} />
-        <Icon src={Facebook} />
-        <Icon src={Instagram} />
+        <Icon src={Naver} alt={"네이버 간편 로그인"} />
+        <Icon src={Kakao} alt={"카카오 간편 로그인"} />
+        <Icon src={Google} alt={"구글 간편 로그인"} />
+        <Icon src={Facebook} alt={"페이스북 간편 로그인"} />
+        <Icon src={Instagram} alt={"인스타그램 간편 로그인"} />
       </OAuthWrapper>
     </Container>
   );
@@ -69,6 +84,15 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.color.light};
 `;
 
+const ExitIcon = styled(FontAwesomeIcon)`
+  position: absolute;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  right: 10px;
+  top: 10px;
+`;
+
 const Title = styled.h1`
   ${({ theme }) => theme.mixin.fontSize(34, theme.color.main)};
   margin-bottom: 70px;
@@ -76,8 +100,10 @@ const Title = styled.h1`
 
 const FirstActionWrapper = styled.span`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 400px;
+  height: 30px;
   margin: 40px auto 55px;
 `;
 

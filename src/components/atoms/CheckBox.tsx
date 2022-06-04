@@ -2,15 +2,16 @@ import styled from "styled-components";
 
 type CheckBoxPropsType = {
   checked: boolean;
+  onChange: () => void;
 };
 
 const CheckBox = (props: CheckBoxPropsType) => {
-  const { checked } = props;
+  const { checked, onChange } = props;
 
   return (
     <Container>
-      <HiddenCheckBox type={"checkbox"} checked={checked} />
-      <StyledCheckBox checked={checked}>
+      <HiddenCheckBox type={"checkbox"} defaultChecked={checked} />
+      <StyledCheckBox onClick={onChange} defaultChecked={checked}>
         <Icon viewBox="0 0 24 24">
           <polyline points="19 7 10 17 5 12" />
         </Icon>
@@ -30,18 +31,19 @@ const Icon = styled.svg`
   stroke-width: 2px;
 `;
 
-const StyledCheckBox = styled.div<{ checked: boolean }>`
+const StyledCheckBox = styled.div<{ defaultChecked: boolean }>`
   display: inline-block;
   cursor: pointer;
   width: 28px;
   height: 28px;
-  border: ${(props) => (props.checked ? "none" : "solid 0.1rem #dddddd")};
-  background: ${(props) => (props.checked ? "black" : "white")};
+  border: ${(props) =>
+    props.defaultChecked ? "none" : "solid 0.1rem #dddddd"};
+  background: ${(props) => (props.defaultChecked ? "black" : "white")};
   border-radius: 100%;
   transition: all 150ms;
 
   ${Icon} {
-    visibility: ${(props) => (props.checked ? "visible" : "hidden")};
+    visibility: ${(props) => (props.defaultChecked ? "visible" : "hidden")};
   }
 `;
 
