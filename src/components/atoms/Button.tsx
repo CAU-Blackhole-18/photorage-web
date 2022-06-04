@@ -1,48 +1,38 @@
-import React from 'react';
-import './button.css';
+import styled from "styled-components";
 
-interface ButtonProps {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary?: boolean;
-  /**
-   * What background color to use
-   */
+type ButtonPropsType = {
   backgroundColor?: string;
-  /**
-   * How large should the button be?
-   */
-  size?: 'small' | 'medium' | 'large';
-  /**
-   * Button contents
-   */
-  label: string;
-  /**
-   * Optional click handler
-   */
+  children: React.ReactNode;
+  height?: string;
   onClick?: () => void;
-}
+  radius?: string;
+  width?: string;
+};
 
-/**
- * Primary UI component for user interaction
- */
-export const Button = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
-  label,
-  ...props
-}: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+const Button = styled.button.attrs({ type: "button" })<ButtonPropsType>`
+  ${({ theme }) => theme.mixin.flexCenter()};
+  background-color: ${(props) => props.backgroundColor};
+  border-radius: ${(props) => props.radius};
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const ButtonView = (props: ButtonPropsType) => {
+  const { onClick, backgroundColor, radius, height, width, children } = props;
   return (
-    <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={{ backgroundColor }}
-      {...props}
+    <Button
+      onClick={onClick}
+      backgroundColor={backgroundColor}
+      radius={radius}
+      height={height}
+      width={width}
     >
-      {label}
-    </button>
+      {children}
+    </Button>
   );
 };
+
+export default ButtonView;

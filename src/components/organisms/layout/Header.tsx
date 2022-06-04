@@ -1,28 +1,70 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import Button from "../../atoms/Button";
+import Logo from "/image/photorage_logo_white.png";
 
-export function Header() {
+export const Header = () => {
+  return (
+    <Container>
+      <MenuBarWrapper>
+        <MenuBarIcon icon={faBars} />
+        <MenuBarTitle>Menu</MenuBarTitle>
+      </MenuBarWrapper>
+      <MainLogo src={Logo} />
+      <ButtonWrapper>
+        <Button backgroundColor="transparent">
+          <ButtonContent>Log in</ButtonContent>
+        </Button>
+        <Button backgroundColor="transparent">
+          <ButtonContent>Sign up</ButtonContent>
+        </Button>
+      </ButtonWrapper>
+    </Container>
+  );
+};
 
-    return (
-        <HeaderContainer>
-            <HeaderMenu>햄버거 메뉴 아이콘</HeaderMenu>
-            <HeaderMenu>로고</HeaderMenu>
-            <HeaderMenu><Link to='/login'>로그인</Link></HeaderMenu>
-            <HeaderMenu>회원가입</HeaderMenu>
-        </HeaderContainer>
-    )
-}
+const Container = styled.header`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 5vh;
+  padding: 40px 70px;
+  background-color: transparent;
+`;
 
-const HeaderContainer = styled.header`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100vw;
-    height: 5vh;
-    background-color: black;
-    color: white;
-`
+const MenuBarWrapper = styled.span`
+  ${({ theme }) => theme.mixin.flexCenter()}
+  flex-direction: row;
+`;
 
-const HeaderMenu = styled.div`
-    
-`
+const MenuBarIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  color: ${({ theme }) => theme.color.light};
+  margin-right: 13px;
+  width: 32px;
+  height: 24px;
+`;
+
+const MenuBarTitle = styled.p`
+  ${({ theme }) => theme.mixin.fontSize(16)};
+`;
+
+const MainLogo = styled.img`
+  cursor: pointer;
+  width: 250px;
+  height: 30px;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 120px;
+`;
+
+const ButtonContent = styled.span`
+  ${({ theme }) => theme.mixin.fontSize(16)};
+`;
