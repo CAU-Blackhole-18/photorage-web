@@ -1,10 +1,14 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Header } from "./components/organisms/layout/Header";
+import Mainpage from "./pages/Mainpage";
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Header />} />
-    </Routes>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Mainpage />} />
+      </Routes>
+    </>
   );
 }
 

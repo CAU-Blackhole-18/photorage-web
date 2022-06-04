@@ -30,8 +30,8 @@ const Container = styled.header`
   justify-content: space-between;
   align-items: center;
   width: 100vw;
-  height: 5vh;
-  padding: 40px 70px;
+  height: 100px;
+  padding: 20px 78px;
   background-color: transparent;
 `;
 
@@ -67,4 +67,5 @@ const ButtonWrapper = styled.div`
 
 const ButtonContent = styled.span`
   ${({ theme }) => theme.mixin.fontSize(16)};
+  font-weight: 700px;
 `;

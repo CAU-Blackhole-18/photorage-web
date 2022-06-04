@@ -24,6 +24,13 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+  input:focus {
+    outline: none;
+  }
+  @font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Regular.ttf')
+  }
 `;
 
 export default GlobalStyle;

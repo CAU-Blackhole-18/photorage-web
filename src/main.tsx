@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import GlobalStyle from "./styles/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import * as mixin from "./styles/mixin";
@@ -14,7 +14,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
       <BrowserRouter>
         <GlobalStyle />
-        <App />
+        <Routes>
+          <Route path="*" element={<App />} />
+        </Routes>
       </BrowserRouter>
     </React.StrictMode>
   </ThemeProvider>

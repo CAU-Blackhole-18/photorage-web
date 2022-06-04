@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 
 const fontSize = (size: number = 10, color: string = "#ffffff") => css`
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Roboto";
   font-size: ${size}px;
   color: ${color};
 `;
