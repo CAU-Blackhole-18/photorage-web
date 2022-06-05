@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Button from "../../atoms/Button";
 import CheckBox from "../../atoms/CheckBox";
@@ -34,70 +34,86 @@ const LoginForm = (props: LoginFormPropsType) => {
   }, [loginPopupOpen]);
 
   return (
-    <Container
-      ref={loginPopupRef}
-      onBlur={() => setLoginPopupOpen(false)}
-      tabIndex={0}
-      isLoginPopupOpen={isLoginPopupOpen}
-    >
-      <ExitIcon onClick={() => setLoginPopupOpen(false)} icon={faXmark} />
-      <Title>로그인</Title>
-      <form>
-        <InputForm
-          placeholder="이메일을 입력하세요."
-          width="400px"
-          height="56px"
-          tabIndex={1}
-        />
-        <Spacer size={16} />
-        <InputForm
-          placeholder="비밀번호를 입력하세요."
-          width="400px"
-          height="56px"
-          type="password"
-          autoComplete={"off"}
-          tabIndex={2}
-        />
-        <FirstActionWrapper>
-          <LoginMaintainWrapper>
-            <CheckBox
-              checked={isChecked}
-              onChange={() => setIsChecked((prev) => !prev)}
-            />
-            <CheckBoxTitle>로그인 유지</CheckBoxTitle>
-          </LoginMaintainWrapper>
-          <Button backgroundColor="transparent">
-            <ButtonGreyContent>비밀번호 찾기</ButtonGreyContent>
+    <>
+      {loginPopupOpen && <LoginFormLayout />}
+      <Container
+        ref={loginPopupRef}
+        onBlur={(e: React.FocusEvent) => {
+          !e.currentTarget.contains(e.relatedTarget) &&
+            setLoginPopupOpen(false);
+        }}
+        tabIndex={0}
+        isLoginPopupOpen={isLoginPopupOpen}
+      >
+        <ExitIcon onClick={() => setLoginPopupOpen(false)} icon={faXmark} />
+        <Title>로그인</Title>
+        <form>
+          <InputForm
+            placeholder="이메일을 입력하세요."
+            width="400px"
+            height="56px"
+            tabIndex={1}
+          />
+          <Spacer size={16} />
+          <InputForm
+            placeholder="비밀번호를 입력하세요."
+            width="400px"
+            height="56px"
+            type="password"
+            autoComplete={"off"}
+            tabIndex={2}
+          />
+          <FirstActionWrapper>
+            <LoginMaintainWrapper>
+              <CheckBox
+                checked={isChecked}
+                onChange={() => setIsChecked((prev) => !prev)}
+              />
+              <CheckBoxTitle>로그인 유지</CheckBoxTitle>
+            </LoginMaintainWrapper>
+            <Button backgroundColor="transparent">
+              <ButtonGreyContent>비밀번호 찾기</ButtonGreyContent>
+            </Button>
+          </FirstActionWrapper>
+          <Button
+            backgroundColor="#000000"
+            width="400px"
+            height="60px"
+            radius="15px"
+          >
+            <ButtonWhiteContent>이메일로 로그인</ButtonWhiteContent>
           </Button>
-        </FirstActionWrapper>
-        <Button
-          backgroundColor="#000000"
-          width="400px"
-          height="60px"
-          radius="15px"
-        >
-          <ButtonWhiteContent>이메일로 로그인</ButtonWhiteContent>
-        </Button>
-      </form>
-      <SecondActionWrapper>
-        <Button backgroundColor="transparent">
-          <ButtonBlackContent>회원가입</ButtonBlackContent>
-        </Button>
-        <Button backgroundColor="transparent">
-          <ButtonBlackContent>이메일 찾기</ButtonBlackContent>
-        </Button>
-      </SecondActionWrapper>
-      <SimpleLogin>간편로그인</SimpleLogin>
-      <OAuthWrapper>
-        <Icon src={Naver} alt={"네이버 간편 로그인"} />
-        <Icon src={Kakao} alt={"카카오 간편 로그인"} />
-        <Icon src={Google} alt={"구글 간편 로그인"} />
-        <Icon src={Facebook} alt={"페이스북 간편 로그인"} />
-        <Icon src={Instagram} alt={"인스타그램 간편 로그인"} />
-      </OAuthWrapper>
-    </Container>
+        </form>
+        <SecondActionWrapper>
+          <Button backgroundColor="transparent">
+            <ButtonBlackContent>회원가입</ButtonBlackContent>
+          </Button>
+          <Button backgroundColor="transparent">
+            <ButtonBlackContent>이메일 찾기</ButtonBlackContent>
+          </Button>
+        </SecondActionWrapper>
+        <SimpleLogin>간편로그인</SimpleLogin>
+        <OAuthWrapper>
+          <Icon src={Naver} alt={"네이버 간편 로그인"} />
+          <Icon src={Kakao} alt={"카카오 간편 로그인"} />
+          <Icon src={Google} alt={"구글 간편 로그인"} />
+          <Icon src={Facebook} alt={"페이스북 간편 로그인"} />
+          <Icon src={Instagram} alt={"인스타그램 간편 로그인"} />
+        </OAuthWrapper>
+      </Container>
+    </>
   );
 };
+
+const LoginFormLayout = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: ${({ theme }) => theme.color.background};
+  z-index: 10000;
+`;
 
 const Container = styled.div<{ isLoginPopupOpen: boolean }>`
   ${(props) => !props.isLoginPopupOpen && `opacity: 0;`}
@@ -106,6 +122,7 @@ const Container = styled.div<{ isLoginPopupOpen: boolean }>`
   position: relative;
   height: 750px;
   width: 500px;
+  z-index: 10000;
   background-color: ${({ theme }) => theme.color.light};
 `;
 
