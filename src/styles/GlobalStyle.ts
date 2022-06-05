@@ -10,27 +10,36 @@ const GlobalStyle = createGlobalStyle`
     vertical-align: baseline;
     box-sizing: border-box;
   }
+
   body {
     width: 100vw;
     height: 100vh;
-    font-family: "Noto Sans KR";
     background-color: #000000;
     margin: 0px;
     padding: 0px;
   }
+
+  #root {
+  min-height: 100%;
+  }
+  
   button {
     border: none;
   }
+
   a {
     text-decoration: none;
   }
+
   input:focus {
     outline: none;
   }
+
   @font-face {
     font-family: 'Roboto';
     src: url('/fonts/Roboto-Regular.ttf')
   }
+  
 `;
 
 export default GlobalStyle;

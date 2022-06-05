@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Button from "../../atoms/Button";
 import CheckBox from "../../atoms/CheckBox";
@@ -11,12 +11,36 @@ import Naver from "/image/btn_naver.png";
 import Google from "/image/btn_google.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useRecoilState } from "recoil";
+import { loginPopupState } from "../../../stores/Auth";
 
-const LoginForm = () => {
+type LoginFormPropsType = {
+  isLoginPopupOpen: boolean;
+};
+
+const LoginForm = (props: LoginFormPropsType) => {
+  const { isLoginPopupOpen } = props;
+
+  const [loginPopupOpen, setLoginPopupOpen] =
+    useRecoilState<boolean>(loginPopupState);
   const [isChecked, setIsChecked] = useState<boolean>(false);
+
+  const loginPopupRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+
+  useEffect(() => {
+    if (loginPopupOpen) {
+      loginPopupRef.current.focus();
+    }
+  }, [loginPopupOpen]);
+
   return (
-    <Container>
-      <ExitIcon icon={faXmark} />
+    <Container
+      ref={loginPopupRef}
+      onBlur={() => setLoginPopupOpen(false)}
+      tabIndex={0}
+      isLoginPopupOpen={isLoginPopupOpen}
+    >
+      <ExitIcon onClick={() => setLoginPopupOpen(false)} icon={faXmark} />
       <Title>로그인</Title>
       <form>
         <InputForm
@@ -75,7 +99,8 @@ const LoginForm = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ isLoginPopupOpen: boolean }>`
+  ${(props) => !props.isLoginPopupOpen && `opacity: 0;`}
   ${({ theme }) => theme.mixin.flexCenter()};
   flex-direction: column;
   position: relative;

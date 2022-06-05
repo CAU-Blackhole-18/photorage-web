@@ -6,6 +6,7 @@ import GlobalStyle from "./styles/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import * as mixin from "./styles/mixin";
 import color from "./styles/color";
+import { RecoilRoot } from "recoil";
 
 const theme = { mixin, color };
 
@@ -14,9 +15,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
       <BrowserRouter>
         <GlobalStyle />
-        <Routes>
-          <Route path="*" element={<App />} />
-        </Routes>
+        <RecoilRoot>
+          <Routes>
+            <Route path="*" element={<App />} />
+          </Routes>
+        </RecoilRoot>
       </BrowserRouter>
     </React.StrictMode>
   </ThemeProvider>
