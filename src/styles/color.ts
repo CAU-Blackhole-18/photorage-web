@@ -2,8 +2,10 @@ const color = {
   main: "#000000",
   light: "#ffffff",
   yellow: "#fbcb0a",
-  dark: "#00000033",
   red: "#ff5d5d",
+  grey: "#999999",
+  lightGrey: "#e6e6e6",
+  background: "#00000080",
 };
 
 export default color;

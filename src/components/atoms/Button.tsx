@@ -1,5 +1,20 @@
 import styled from "styled-components";
 
+const Button = (props: ButtonPropsType) => {
+  const { onClick, backgroundColor, radius, height, width, children } = props;
+  return (
+    <Container
+      onClick={onClick}
+      backgroundColor={backgroundColor}
+      radius={radius}
+      height={height}
+      width={width}
+    >
+      {children}
+    </Container>
+  );
+};
+
 type ButtonPropsType = {
   backgroundColor?: string;
   children: React.ReactNode;
@@ -9,7 +24,7 @@ type ButtonPropsType = {
   width?: string;
 };
 
-const Button = styled.button.attrs({ type: "button" })<ButtonPropsType>`
+const Container = styled.button.attrs({ type: "button" })<ButtonPropsType>`
   ${({ theme }) => theme.mixin.flexCenter()};
   background-color: ${(props) => props.backgroundColor};
   border-radius: ${(props) => props.radius};
@@ -20,19 +35,4 @@ const Button = styled.button.attrs({ type: "button" })<ButtonPropsType>`
   }
 `;
 
-const ButtonView = (props: ButtonPropsType) => {
-  const { onClick, backgroundColor, radius, height, width, children } = props;
-  return (
-    <Button
-      onClick={onClick}
-      backgroundColor={backgroundColor}
-      radius={radius}
-      height={height}
-      width={width}
-    >
-      {children}
-    </Button>
-  );
-};
-
-export default ButtonView;
+export default Button;

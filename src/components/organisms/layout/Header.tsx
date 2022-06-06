@@ -3,8 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../atoms/Button";
 import Logo from "/image/photorage_logo_white.png";
+import { useSetRecoilState } from "recoil";
+import { loginPopupState } from "../../../stores/Auth";
 
 export const Header = () => {
+  const setLoginPopupOpen = useSetRecoilState<boolean>(loginPopupState);
   return (
     <Container>
       <MenuBarWrapper>
@@ -13,7 +16,10 @@ export const Header = () => {
       </MenuBarWrapper>
       <MainLogo src={Logo} />
       <ButtonWrapper>
-        <Button backgroundColor="transparent">
+        <Button
+          onClick={() => setLoginPopupOpen(true)}
+          backgroundColor="transparent"
+        >
           <ButtonContent>Log in</ButtonContent>
         </Button>
         <Button backgroundColor="transparent">
@@ -30,8 +36,8 @@ const Container = styled.header`
   justify-content: space-between;
   align-items: center;
   width: 100vw;
-  height: 5vh;
-  padding: 40px 70px;
+  height: 100px;
+  padding: 20px 78px;
   background-color: transparent;
 `;
 
@@ -67,4 +73,5 @@ const ButtonWrapper = styled.div`
 
 const ButtonContent = styled.span`
   ${({ theme }) => theme.mixin.fontSize(16)};
+  font-weight: 700px;
 `;
