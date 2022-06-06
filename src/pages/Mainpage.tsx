@@ -1,6 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import LoginForm from "../components/organisms/auth/LoginForm";
+import SignupForm from "../components/organisms/auth/SignupForm";
 import { loginPopupState } from "../stores/Auth";
 
 export function Mainpage() {
@@ -9,6 +10,7 @@ export function Mainpage() {
   return (
     <Container>
       <LoginForm isLoginPopupOpen={isLoginPopupOpen} />
+      <SignupForm />
     </Container>
   );
 }

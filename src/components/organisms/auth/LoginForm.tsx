@@ -63,27 +63,27 @@ const LoginForm = (props: LoginFormPropsType) => {
             autoComplete={"off"}
             tabIndex={2}
           />
-          <FirstActionWrapper>
-            <LoginMaintainWrapper>
-              <CheckBox
-                checked={isChecked}
-                onChange={() => setIsChecked((prev) => !prev)}
-              />
-              <CheckBoxTitle>로그인 유지</CheckBoxTitle>
-            </LoginMaintainWrapper>
-            <Button backgroundColor="transparent">
-              <ButtonGreyContent>비밀번호 찾기</ButtonGreyContent>
-            </Button>
-          </FirstActionWrapper>
-          <Button
-            backgroundColor="#000000"
-            width="400px"
-            height="60px"
-            radius="15px"
-          >
-            <ButtonWhiteContent>이메일로 로그인</ButtonWhiteContent>
-          </Button>
         </form>
+        <FirstActionWrapper>
+          <LoginMaintainWrapper>
+            <CheckBox
+              checked={isChecked}
+              onChange={() => setIsChecked((prev) => !prev)}
+            />
+            <CheckBoxTitle>로그인 유지</CheckBoxTitle>
+          </LoginMaintainWrapper>
+          <Button backgroundColor="transparent">
+            <ButtonGreyContent>비밀번호 찾기</ButtonGreyContent>
+          </Button>
+        </FirstActionWrapper>
+        <Button
+          backgroundColor="#000000"
+          width="400px"
+          height="60px"
+          radius="15px"
+        >
+          <ButtonWhiteContent>이메일로 로그인</ButtonWhiteContent>
+        </Button>
         <SecondActionWrapper>
           <Button backgroundColor="transparent">
             <ButtonBlackContent>회원가입</ButtonBlackContent>
@@ -138,6 +138,7 @@ const ExitIcon = styled(FontAwesomeIcon)`
 const Title = styled.h1`
   ${({ theme }) => theme.mixin.fontSize(34, theme.color.main)};
   margin-bottom: 70px;
+  font-weight: 700;
 `;
 
 const FirstActionWrapper = styled.span`
@@ -163,11 +164,12 @@ const CheckBoxTitle = styled.p`
 const ButtonGreyContent = styled.span`
   ${({ theme }) => theme.mixin.fontSize(16, theme.color.grey)};
   text-decoration: underline;
-  font-weight: 700px;
+  font-weight: 700;
 `;
 
 const ButtonWhiteContent = styled.span`
   ${({ theme }) => theme.mixin.fontSize(16, theme.color.light)};
+  font-weight: 700;
 `;
 
 const SecondActionWrapper = styled.span`
