@@ -9,6 +9,7 @@ const Button = (props: ButtonPropsType) => {
       radius={radius}
       height={height}
       width={width}
+      tabIndex={-1}
     >
       {children}
     </Container>
