@@ -1,22 +1,16 @@
+import React from "react";
 import styled from "styled-components";
 
 type CheckBoxPropsType = {
   checked: boolean;
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const CheckBox = (props: CheckBoxPropsType) => {
   const { checked, onChange } = props;
 
   return (
-    <Container>
-      <HiddenCheckBox type={"checkbox"} defaultChecked={checked} />
-      <StyledCheckBox onClick={onChange} defaultChecked={checked}>
-        <Icon viewBox="0 0 24 24">
-          <polyline points="19 7 10 17 5 12" />
-        </Icon>
-      </StyledCheckBox>
-    </Container>
+    <input type="checkbox" checked={checked} onChange={(e) => onChange(e)} />
   );
 };
 

@@ -1,9 +1,10 @@
+import React from "react";
 import styled from "styled-components";
 import Button from "../atoms/Button";
 import CheckBox from "../atoms/CheckBox";
 
 type TermsPropsType = {
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
   width?: string;
   termTitle: string;
@@ -14,6 +15,7 @@ type TermsPropsType = {
 const Terms = (props: TermsPropsType) => {
   const { checked, width, termTitle, strong, contentOpenButton, onChange } =
     props;
+
   return (
     <Container width={width}>
       <TitleWrapper>

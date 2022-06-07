@@ -1,6 +1,6 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { loginPopupState, signupPopupState } from "../../../stores/Auth";
@@ -16,11 +16,8 @@ type SignupFormPropsType = {
 const SignupForm = (props: SignupFormPropsType) => {
   const { isSignupPopupOpen } = props;
 
-  const [allTermChecked, setAllTermChecked] = useState(false);
-  const [firstTermChecked, setFirstTermChecked] = useState(false);
-  const [secondTermChecked, setSecondTermChecked] = useState(false);
-  const [thirdTermChecked, setThirdTermChecked] = useState(false);
-  const [lastTermChecked, setLastTermChecked] = useState(false);
+  const [checkList, setCheckList] = useState<number[]>([]);
+
   const [signupPopupOpen, setSignupPopupOpen] =
     useRecoilState<boolean>(signupPopupState);
   const setLoginPopupOpen = useSetRecoilState(loginPopupState);
@@ -32,6 +29,25 @@ const SignupForm = (props: SignupFormPropsType) => {
       signupPopupRef.current.focus();
     }
   }, [signupPopupOpen]);
+
+  const handleCheckAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setCheckList([1, 2, 3, 4]);
+    } else {
+      setCheckList([]);
+    }
+  };
+
+  const handleCheckEach = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: number
+  ) => {
+    if (e.target.checked) {
+      setCheckList([...checkList, id]);
+    } else {
+      setCheckList(checkList.filter((elem) => elem !== id));
+    }
+  };
 
   return (
     <>
@@ -65,10 +81,16 @@ const SignupForm = (props: SignupFormPropsType) => {
             tabIndex={2}
           />
         </form>
-        <Spacer size={45} />
+        <Spacer size={30} />
         <Terms
-          onChange={() => setAllTermChecked((prev) => !prev)}
-          checked={allTermChecked}
+          onChange={handleCheckAll}
+          checked={
+            checkList.length === 0
+              ? false
+              : checkList.length === 4
+              ? true
+              : false
+          }
           termTitle={"모두 동의합니다."}
           strong={true}
         />
@@ -78,32 +100,40 @@ const SignupForm = (props: SignupFormPropsType) => {
             본인확인 정보 수집 및 저장(선택)을 확인하였으며 모두 동의합니다.
           </TermDescription>
           <Terms
-            onChange={() => setFirstTermChecked((prev) => !prev)}
-            checked={firstTermChecked}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleCheckEach(e, 1)
+            }
+            checked={checkList.includes(1)}
             termTitle={"만 14세 이상입니다. (필수)"}
             contentOpenButton={true}
             width={"360px"}
           />
           <Spacer size={16} />
           <Terms
-            onChange={() => setSecondTermChecked((prev) => !prev)}
-            checked={secondTermChecked}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleCheckEach(e, 2)
+            }
+            checked={checkList.includes(2)}
             termTitle={"이용약관 (필수)"}
             contentOpenButton={true}
             width={"360px"}
           />
           <Spacer size={16} />
           <Terms
-            onChange={() => setThirdTermChecked((prev) => !prev)}
-            checked={thirdTermChecked}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleCheckEach(e, 3)
+            }
+            checked={checkList.includes(3) ? true : false}
             termTitle={"개인정보 수집 및 이용 (필수)"}
             contentOpenButton={true}
             width={"360px"}
           />
           <Spacer size={16} />
           <Terms
-            onChange={() => setLastTermChecked((prev) => !prev)}
-            checked={lastTermChecked}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleCheckEach(e, 4)
+            }
+            checked={checkList.includes(4) ? true : false}
             termTitle={"본인확인 정보 수집 및 저장 (선택)"}
             width={"360px"}
           />
@@ -145,10 +175,11 @@ const Container = styled.div<{ isSignupPopupOpen: boolean }>`
     props.isSignupPopupOpen ? props.theme.mixin.flexCenter() : `display: none;`}
   flex-direction: column;
   position: relative;
-  height: 750px;
+  height: 800px;
   width: 500px;
   z-index: 10000;
   background-color: ${({ theme }) => theme.color.light};
+  padding: 40px 50px;
 `;
 
 const ExitIcon = styled(FontAwesomeIcon)`

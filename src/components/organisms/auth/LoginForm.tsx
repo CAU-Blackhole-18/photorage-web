@@ -124,6 +124,7 @@ const Container = styled.div<{ isLoginPopupOpen: boolean }>`
   width: 500px;
   z-index: 10000;
   background-color: ${({ theme }) => theme.color.light};
+  padding: 40px 50px;
 `;
 
 const ExitIcon = styled(FontAwesomeIcon)`
