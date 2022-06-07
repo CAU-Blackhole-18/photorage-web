@@ -42,7 +42,7 @@ const LoginForm = (props: LoginFormPropsType) => {
           !e.currentTarget.contains(e.relatedTarget) &&
             setLoginPopupOpen(false);
         }}
-        tabIndex={0}
+        tabIndex={-1}
         isLoginPopupOpen={isLoginPopupOpen}
       >
         <ExitIcon onClick={() => setLoginPopupOpen(false)} icon={faXmark} />
@@ -116,8 +116,8 @@ const LoginFormLayout = styled.div`
 `;
 
 const Container = styled.div<{ isLoginPopupOpen: boolean }>`
-  ${(props) => !props.isLoginPopupOpen && `opacity: 0;`}
-  ${({ theme }) => theme.mixin.flexCenter()};
+  ${(props) =>
+    props.isLoginPopupOpen ? props.theme.mixin.flexCenter() : `display: none;`}
   flex-direction: column;
   position: relative;
   height: 750px;

@@ -4,10 +4,11 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../atoms/Button";
 import Logo from "/image/photorage_logo_white.png";
 import { useSetRecoilState } from "recoil";
-import { loginPopupState } from "../../../stores/Auth";
+import { loginPopupState, signupPopupState } from "../../../stores/Auth";
 
 export const Header = () => {
   const setLoginPopupOpen = useSetRecoilState<boolean>(loginPopupState);
+  const setSignupPopupOpen = useSetRecoilState<boolean>(signupPopupState);
   return (
     <Container>
       <MenuBarWrapper>
@@ -22,7 +23,10 @@ export const Header = () => {
         >
           <ButtonContent>Log in</ButtonContent>
         </Button>
-        <Button backgroundColor="transparent">
+        <Button
+          onClick={() => setSignupPopupOpen(true)}
+          backgroundColor="transparent"
+        >
           <ButtonContent>Sign up</ButtonContent>
         </Button>
       </ButtonWrapper>
