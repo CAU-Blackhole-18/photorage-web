@@ -5,10 +5,7 @@ import classNames from "classnames";
 export enum ButtonType {
   DEFAULT = 'default',
   PRIMARY = 'primary',
-<<<<<<< HEAD
-=======
   TRANSPARENT = 'transparent',
->>>>>>> feat/Login
   SECONDARY = 'secondary',
   GRAY = 'gray',
   GRAY_SUB = 'gray_sub',
@@ -61,7 +58,6 @@ export default function Button({
     </Container>
   )
 }
-// ${({ theme }) => theme.mixin.flexCenter()};
 
 const Container = styled.button`
   width: 100%;
@@ -97,14 +93,11 @@ const Container = styled.button`
     }
   }
 
-<<<<<<< HEAD
-=======
   &.transparent {
     background-color: ${({theme}) => theme.color.transparent};
     border: none;
   }
 
->>>>>>> feat/Login
   &.disabled {
     background-color: ${({theme}) => theme.color.gray};
   }

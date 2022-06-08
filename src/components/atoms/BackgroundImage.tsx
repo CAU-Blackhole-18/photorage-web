@@ -28,11 +28,10 @@ const Image = styled.img`
 	left: 0;
     
     z-index: -1; // TODO: global로 묶여서 관리하도록 변경
+    opacity: 70%;
 
     @media screen and (max-width: 1024px) { /* Specific to this particular image */
-        img.bg {
-            left: 50%;
-            margin-left: -512px;   /* 50% */
-        }
+        left: 50%;
+        margin-left: -512px;   /* 50% */
     }
 `

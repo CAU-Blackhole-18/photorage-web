@@ -48,10 +48,10 @@ const Container = styled.header`
 const MenuBarWrapper = styled.span`
   ${({ theme }) => theme.mixin.flexCenter()}
   flex-direction: row;
+  cursor: pointer;
 `;
 
 const MenuBarIcon = styled(FontAwesomeIcon)`
-  cursor: pointer;
   color: ${({ theme }) => theme.color.white};
   margin-right: 8px;
   width: 32px;
