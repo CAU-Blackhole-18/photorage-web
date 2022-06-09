@@ -14,17 +14,16 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilState } from "recoil";
 import { loginPopupState } from "@src/stores/Auth";
 
-type LoginFormPropsType = {
+export interface LoginFormProps {
   isLoginPopupOpen: boolean;
 };
 
-const LoginForm = (props: LoginFormPropsType) => {
-  const { isLoginPopupOpen } = props;
+export default function LoginForm ({
+  isLoginPopupOpen
+}: LoginFormProps) {
 
-  const [loginPopupOpen, setLoginPopupOpen] =
-    useRecoilState<boolean>(loginPopupState);
+  const [loginPopupOpen, setLoginPopupOpen] = useRecoilState<boolean>(loginPopupState);
   const [isChecked, setIsChecked] = useState<boolean>(false);
-
   const loginPopupRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   useEffect(() => {
@@ -50,14 +49,14 @@ const LoginForm = (props: LoginFormPropsType) => {
         <form>
           <InputForm
             placeholder="이메일을 입력하세요."
-            width="400px"
+            width="300px"
             height="56px"
             tabIndex={1}
           />
           <Spacer size={16} />
           <InputForm
             placeholder="비밀번호를 입력하세요."
-            width="400px"
+            width="300px"
             height="56px"
             type="password"
             autoComplete={"off"}
@@ -102,7 +101,7 @@ const LoginForm = (props: LoginFormPropsType) => {
       </Container>
     </>
   );
-};
+}
 
 const LoginFormLayout = styled.div`
   position: fixed;
@@ -119,10 +118,11 @@ const Container = styled.div<{ isLoginPopupOpen: boolean }>`
     props.isLoginPopupOpen ? props.theme.mixin.flexCenter() : `display: none;`}
   flex-direction: column;
   position: relative;
-  height: 750px;
-  width: 500px;
+  height: 515px;
+  width: 360px;
+  border-radius: 30px;
   z-index: 10000;
-  background-color: ${({ theme }) => theme.color.light};
+  background-color: ${({ theme }) => theme.color.login_background};
   padding: 40px 50px;
 `;
 
@@ -133,11 +133,12 @@ const ExitIcon = styled(FontAwesomeIcon)`
   height: 32px;
   right: 10px;
   top: 10px;
+  color: ${({ theme }) => theme.color.white};
+   
 `;
 
 const Title = styled.h1`
-  ${({ theme }) => theme.mixin.fontSize(34, theme.color.main)};
-  margin-bottom: 70px;
+  ${({ theme }) => theme.mixin.fontSize(34, theme.color.white)};
   font-weight: 700;
 `;
 
@@ -204,4 +205,3 @@ const Icon = styled.img`
   height: 50px;
 `;
 
-export default LoginForm;
