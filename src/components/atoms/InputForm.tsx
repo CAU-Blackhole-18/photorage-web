@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-type InputFormProps = {
-  placeholder: string;
-  width: string;
-  height: string;
+export interface InputFormProps {
+  placeholder?: string;
+  width?: string;
+  height?: string;
   tabIndex?: number;
   type?: string;
   autoComplete?: string;
