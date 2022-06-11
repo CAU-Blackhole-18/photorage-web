@@ -47,13 +47,14 @@ export default function LoginForm ({
         <ExitIcon onClick={() => setLoginPopupOpen(false)} icon={faXmark} />
         <Title>로그인</Title>
         <Description>이메일</Description>
-        <InputForm2
-          width="300px"
-          height="40px"
+        <InputForm
+          placeholder="example@email.com"
           tabIndex={1}
         />
+        <Spacer size={16}/>
         <Description>비밀번호</Description>
         <InputForm
+          placeholder="password"
           tabIndex={2}
         />
         {/* <FirstActionWrapper>
@@ -143,12 +144,6 @@ const InputForm = styled.form`
   background-color: ${({theme}) => theme.color.transparent};
 `
 
-const InputForm2 = styled(_InputForm)<InputFormProps>`
-  border: none;
-  //border-bottom: 1px solid white;
-  background-color: ${({theme}) => theme.color.transparent};
-
-`
 const Description = styled.div`
   ${({ theme }) => theme.mixin.fontSize(15, theme.color.white)};
   align-self: flex-start;
