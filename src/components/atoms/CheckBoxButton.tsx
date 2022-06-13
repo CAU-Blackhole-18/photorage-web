@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
-
 export type CheckBoxTypes = {
   isChecked: boolean;
   children?: React.ReactNode;
@@ -10,6 +8,18 @@ export type CheckBoxTypes = {
   isPrivate: boolean;
 };
 
+type StyledCheckBoxTypes = {
+  isChecked: boolean;
+};
+
+const StyledCheckBox = styled.div<StyledCheckBoxTypes>`
+  width: 16px;
+  height: 16px;
+  border: solid 1px #808080;
+  border-radius: 2px;
+  background-color: ${(props) => (props.isChecked ? '#60C0A4' : 'transparent')};
+  cursor: pointer;
+`;
 
 
 const StyledChoiceText = styled.p`
