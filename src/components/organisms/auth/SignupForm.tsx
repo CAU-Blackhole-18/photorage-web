@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { useSignup } from "../../../hooks/auth/useSignup";
 import { loginPopupState, signupPopupState } from "../../../stores/Auth";
 import Button from "../../atoms/Button";
 import InputForm from "../../atoms/InputForm";
@@ -15,8 +16,13 @@ type SignupFormPropsType = {
 
 const SignupForm = (props: SignupFormPropsType) => {
   const { isSignupPopupOpen } = props;
+  const signupAction = useSignup();
 
   const [checkList, setCheckList] = useState<number[]>([]);
+  const [inputEmail, setInputEmail] = useState<string>("");
+  const [inputPassword, setInputPassword] = useState<string>("");
+  const [inputName, setInputName] = useState<string>("");
+  const [inputNickname, setInputNickname] = useState<string>("");
 
   const [signupPopupOpen, setSignupPopupOpen] =
     useRecoilState<boolean>(signupPopupState);
@@ -49,6 +55,16 @@ const SignupForm = (props: SignupFormPropsType) => {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signupAction({
+      inputEmail,
+      inputPassword,
+      inputName,
+      inputNickname,
+    });
+  };
+
   return (
     <>
       {signupPopupOpen && <SignupFormLayout />}
@@ -64,12 +80,16 @@ const SignupForm = (props: SignupFormPropsType) => {
         <ExitIcon icon={faXmark} onClick={() => setSignupPopupOpen(false)} />
         <Title>회원가입</Title>
         <SubTitle>회원가입을 위해 인증 가능한 이메일을 입력해 주세요.</SubTitle>
-        <form>
+        <form onSubmit={handleSubmit}>
           <InputForm
             placeholder="이메일을 입력하세요."
             width="400px"
             height="56px"
             tabIndex={1}
+            value={inputEmail}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setInputEmail(e.target.value)
+            }
           />
           <Spacer size={16} />
           <InputForm
@@ -79,73 +99,102 @@ const SignupForm = (props: SignupFormPropsType) => {
             type="password"
             autoComplete={"off"}
             tabIndex={2}
+            value={inputPassword}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setInputPassword(e.target.value)
+            }
           />
+          <Spacer size={16} />
+          <InputForm
+            placeholder="이름을 입력하세요."
+            width="400px"
+            height="56px"
+            tabIndex={3}
+            value={inputName}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setInputName(e.target.value)
+            }
+          />
+          <Spacer size={16} />
+          <InputForm
+            placeholder="닉네임을 입력하세요."
+            width="400px"
+            height="56px"
+            tabIndex={4}
+            value={inputNickname}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setInputNickname(e.target.value)
+            }
+          />
+          <Spacer size={30} />
+          <Terms
+            onChange={handleCheckAll}
+            checked={
+              checkList.length === 0
+                ? false
+                : checkList.length === 4
+                ? true
+                : false
+            }
+            termTitle={"모두 동의합니다."}
+            strong={true}
+          />
+          <SubTermsWrapper>
+            <TermDescription>
+              본인은 만 14세 이상이며 Photorage 이용약관, 개인 정보 수집 및
+              이용, 본인확인 정보 수집 및 저장(선택)을 확인하였으며 모두
+              동의합니다.
+            </TermDescription>
+            <Terms
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleCheckEach(e, 1)
+              }
+              checked={checkList.includes(1)}
+              termTitle={"만 14세 이상입니다. (필수)"}
+              contentOpenButton={true}
+              width={"360px"}
+            />
+            <Spacer size={16} />
+            <Terms
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleCheckEach(e, 2)
+              }
+              checked={checkList.includes(2)}
+              termTitle={"이용약관 (필수)"}
+              contentOpenButton={true}
+              width={"360px"}
+            />
+            <Spacer size={16} />
+            <Terms
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleCheckEach(e, 3)
+              }
+              checked={checkList.includes(3) ? true : false}
+              termTitle={"개인정보 수집 및 이용 (필수)"}
+              contentOpenButton={true}
+              width={"360px"}
+            />
+            <Spacer size={16} />
+            <Terms
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleCheckEach(e, 4)
+              }
+              checked={checkList.includes(4) ? true : false}
+              termTitle={"본인확인 정보 수집 및 저장 (선택)"}
+              width={"360px"}
+            />
+            <Spacer size={16} />
+          </SubTermsWrapper>
+          <Button
+            backgroundColor="#000000"
+            width="400px"
+            height="60px"
+            radius="15px"
+            type="submit"
+          >
+            <ButtonLightContent>가입하기</ButtonLightContent>
+          </Button>
         </form>
-        <Spacer size={30} />
-        <Terms
-          onChange={handleCheckAll}
-          checked={
-            checkList.length === 0
-              ? false
-              : checkList.length === 4
-              ? true
-              : false
-          }
-          termTitle={"모두 동의합니다."}
-          strong={true}
-        />
-        <SubTermsWrapper>
-          <TermDescription>
-            본인은 만 14세 이상이며 Photorage 이용약관, 개인 정보 수집 및 이용,
-            본인확인 정보 수집 및 저장(선택)을 확인하였으며 모두 동의합니다.
-          </TermDescription>
-          <Terms
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleCheckEach(e, 1)
-            }
-            checked={checkList.includes(1)}
-            termTitle={"만 14세 이상입니다. (필수)"}
-            contentOpenButton={true}
-            width={"360px"}
-          />
-          <Spacer size={16} />
-          <Terms
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleCheckEach(e, 2)
-            }
-            checked={checkList.includes(2)}
-            termTitle={"이용약관 (필수)"}
-            contentOpenButton={true}
-            width={"360px"}
-          />
-          <Spacer size={16} />
-          <Terms
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleCheckEach(e, 3)
-            }
-            checked={checkList.includes(3) ? true : false}
-            termTitle={"개인정보 수집 및 이용 (필수)"}
-            contentOpenButton={true}
-            width={"360px"}
-          />
-          <Spacer size={16} />
-          <Terms
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleCheckEach(e, 4)
-            }
-            checked={checkList.includes(4) ? true : false}
-            termTitle={"본인확인 정보 수집 및 저장 (선택)"}
-            width={"360px"}
-          />
-        </SubTermsWrapper>
-        <Button
-          backgroundColor="#000000"
-          width="400px"
-          height="60px"
-          radius="15px"
-        >
-          <ButtonLightContent>가입하기</ButtonLightContent>
-        </Button>
         <LoginConnectSection>
           <LoginConnectInfo>이미 회원이신가요?</LoginConnectInfo>
           <Button
@@ -175,7 +224,6 @@ const Container = styled.div<{ isSignupPopupOpen: boolean }>`
     props.isSignupPopupOpen ? props.theme.mixin.flexCenter() : `display: none;`}
   flex-direction: column;
   position: relative;
-  height: 800px;
   width: 500px;
   z-index: 10000;
   background-color: ${({ theme }) => theme.color.light};
