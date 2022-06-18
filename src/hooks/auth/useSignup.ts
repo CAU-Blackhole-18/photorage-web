@@ -1,5 +1,6 @@
 import { axiosInstance } from "../../axiosInstance";
 import { useMutation, UseMutateFunction } from "react-query";
+import { toast } from "react-toastify";
 
 type SignupPropsType = {
   inputEmail: string;
@@ -20,7 +21,6 @@ const signup = async (
   const { inputEmail, inputPassword, inputName, inputNickname } = props;
 
   if (!inputEmail || !inputPassword || !inputName || !inputNickname) {
-    console.log("에러 발생");
     return null;
   }
 

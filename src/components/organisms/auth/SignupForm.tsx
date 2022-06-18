@@ -9,6 +9,11 @@ import Button from "../../atoms/Button";
 import InputForm from "../../atoms/InputForm";
 import Spacer from "../../atoms/Spacer";
 import Terms from "../../molecules/Terms";
+import { toast } from "react-toastify";
+import {
+  checkEmailValidation,
+  checkPasswordValidation,
+} from "../../../utils/AuthUtils";
 
 type SignupFormPropsType = {
   isSignupPopupOpen: boolean;
@@ -57,6 +62,31 @@ const SignupForm = (props: SignupFormPropsType) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!inputEmail || !inputPassword || !inputName || !inputNickname) {
+      toast.error("필수항목들을 입력해주세요.");
+      return null;
+    }
+
+    if (!checkEmailValidation(inputEmail)) {
+      toast.error("올바르지 않은 이메일 형식입니다.");
+      return;
+    }
+
+    if (!checkPasswordValidation(inputPassword)) {
+      toast.error("올바르지 않은 비밀번호 형식입니다.");
+      return;
+    }
+
+    if (
+      !checkList.includes(1) ||
+      !checkList.includes(2) ||
+      !checkList.includes(3)
+    ) {
+      toast.error("필수 항목에 동의해주세요.");
+      return;
+    }
+
     signupAction({
       inputEmail,
       inputPassword,
@@ -216,7 +246,7 @@ const SignupFormLayout = styled.div`
   width: 100vw;
   height: 100%;
   background-color: ${({ theme }) => theme.color.background};
-  z-index: 10000;
+  z-index: 9999;
 `;
 
 const Container = styled.div<{ isSignupPopupOpen: boolean }>`
