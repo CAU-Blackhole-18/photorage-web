@@ -7,10 +7,21 @@ type InputFormProps = {
   tabIndex?: number;
   type?: string;
   autoComplete?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const InputForm = (props: InputFormProps) => {
-  const { placeholder, width, height, tabIndex, type, autoComplete } = props;
+  const {
+    placeholder,
+    width,
+    height,
+    tabIndex,
+    type,
+    autoComplete,
+    value,
+    onChange,
+  } = props;
   return (
     <Input
       tabIndex={tabIndex}
@@ -21,6 +32,8 @@ const InputForm = (props: InputFormProps) => {
       spellCheck={false}
       type={type}
       autoComplete={autoComplete}
+      defaultValue={value}
+      onChange={onChange}
     />
   );
 };

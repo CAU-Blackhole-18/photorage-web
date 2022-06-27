@@ -1,9 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 
+interface IProps {
+  className?: string;
+  checked: boolean;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  labelWrap?: boolean;
+}
+
+const Checkbox: React.FC<IProps> = ({
+  className,
+  checked,
+  labelWrap = true,
+  ...props
+}) => {
+  const content = (
+    <CheckboxContainer className={className}>
+      <HiddenCheckbox checked={checked} {...props} />
+      <StyledCheckbox checked={checked}>
+        <Icon viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12" />
+        </Icon>
+      </StyledCheckbox>
+    </CheckboxContainer>
+  );
+
+  return labelWrap ? <label>{content}</label> : <>{content}</>;
+};
+
 const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
+  ${({ theme }) => theme.mixin.flexCenter()}
+  cursor: pointer;
 `;
 
 const Icon = styled.svg`
@@ -40,32 +69,5 @@ const StyledCheckbox = styled.div<{ checked: boolean }>`
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
   }
 `;
-
-interface IProps {
-  className?: string;
-  checked: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  labelWrap?: boolean;
-}
-
-const Checkbox: React.FC<IProps> = ({
-  className,
-  checked,
-  labelWrap = true,
-  ...props
-}) => {
-  const content = (
-    <CheckboxContainer className={className}>
-      <HiddenCheckbox checked={checked} {...props} />
-      <StyledCheckbox checked={checked}>
-        <Icon viewBox="0 0 24 24">
-          <polyline points="20 6 9 17 4 12" />
-        </Icon>
-      </StyledCheckbox>
-    </CheckboxContainer>
-  );
-
-  return labelWrap ? <label>{content}</label> : <>{content}</>;
-};
 
 export default Checkbox;
