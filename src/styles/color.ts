@@ -1,10 +1,10 @@
 const color = {
-  main: "#000000",
-  light: "#ffffff",
+  main: "#3F80CC",
+  white: "#ffffff",
   yellow: "#fbcb0a",
   red: "#ff5d5d",
-  grey: "#999999",
-  lightGrey: "#e6e6e6",
+  gray: "#9d9ea3",
+  lightGray: "#e6e6e6",
   background: "#00000080",
 };
 
