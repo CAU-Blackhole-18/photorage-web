@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import Button from "../../atoms/Button";
+import Button, {ButtonType} from "@components/atoms/Button";
 import Logo from "/image/photorage_logo_white.png";
 import { useSetRecoilState } from "recoil";
 import { loginPopupState, signupPopupState } from "../../../stores/Auth";
@@ -19,13 +19,13 @@ export const Header = () => {
       <ButtonWrapper>
         <Button
           onClick={() => setLoginPopupOpen(true)}
-          backgroundColor="transparent"
+          buttonType={ButtonType.TRANSPARENT}
         >
           <ButtonContent>Log in</ButtonContent>
         </Button>
         <Button
           onClick={() => setSignupPopupOpen(true)}
-          backgroundColor="transparent"
+          buttonType={ButtonType.TRANSPARENT}
         >
           <ButtonContent>Sign up</ButtonContent>
         </Button>
@@ -52,8 +52,8 @@ const MenuBarWrapper = styled.span`
 
 const MenuBarIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
-  color: ${({ theme }) => theme.color.light};
-  margin-right: 13px;
+  color: ${({ theme }) => theme.color.white};
+  margin-right: 8px;
   width: 32px;
   height: 24px;
 `;

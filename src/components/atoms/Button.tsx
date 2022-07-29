@@ -5,6 +5,10 @@ import classNames from "classnames";
 export enum ButtonType {
   DEFAULT = 'default',
   PRIMARY = 'primary',
+<<<<<<< HEAD
+=======
+  TRANSPARENT = 'transparent',
+>>>>>>> feat/Login
   SECONDARY = 'secondary',
   GRAY = 'gray',
   GRAY_SUB = 'gray_sub',
@@ -93,6 +97,14 @@ const Container = styled.button`
     }
   }
 
+<<<<<<< HEAD
+=======
+  &.transparent {
+    background-color: ${({theme}) => theme.color.transparent};
+    border: none;
+  }
+
+>>>>>>> feat/Login
   &.disabled {
     background-color: ${({theme}) => theme.color.gray};
   }

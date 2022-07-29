@@ -1,6 +1,7 @@
+import color from "@src/styles/color";
 import React from "react";
 import styled from "styled-components";
-import Button from "../atoms/Button";
+import Button, {ButtonType} from "../atoms/Button";
 import CheckBox from "../atoms/CheckBox";
 
 type TermsPropsType = {
@@ -23,7 +24,7 @@ const Terms = (props: TermsPropsType) => {
         <Title strong={strong}>{termTitle}</Title>
       </TitleWrapper>
       {contentOpenButton && (
-        <Button backgroundColor="transparent">
+        <Button buttonType={ButtonType.TRANSPARENT}>
           <ButtonContent>내용보기</ButtonContent>
         </Button>
       )}
