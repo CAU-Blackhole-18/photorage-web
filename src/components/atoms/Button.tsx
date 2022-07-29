@@ -5,6 +5,7 @@ import classNames from "classnames";
 export enum ButtonType {
   DEFAULT = 'default',
   PRIMARY = 'primary',
+  TRANSPARENT = 'transparent',
   SECONDARY = 'secondary',
   GRAY = 'gray',
   GRAY_SUB = 'gray_sub',
@@ -91,6 +92,11 @@ const Container = styled.button`
       color: rgba(37, 40, 47, 0.3);
       background-color: ${({theme}) => theme.color.gray};
     }
+  }
+
+  &.transparent {
+    background-color: ${({theme}) => theme.color.transparent};
+    border: none;
   }
 
   &.disabled {

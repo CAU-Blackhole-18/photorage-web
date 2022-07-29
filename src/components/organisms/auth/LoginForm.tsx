@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Button from "../../atoms/Button";
-import CheckBox from "../../atoms/CheckBox";
-import InputForm from "../../atoms/InputForm";
-import Spacer from "../../atoms/Spacer";
+import Button, {ButtonType} from "@components/atoms/Button";
+import CheckBox from "@components/atoms/CheckBox";
+import InputForm from "@components/atoms/InputForm";
+import Spacer from "@components/atoms/Spacer";
 import Facebook from "/image/btn_facebook.png";
 import Instagram from "/image/btn_instagram.png";
 import Kakao from "/image/btn_kakao.png";
@@ -12,7 +12,7 @@ import Google from "/image/btn_google.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilState } from "recoil";
-import { loginPopupState } from "../../../stores/Auth";
+import { loginPopupState } from "@src/stores/Auth";
 
 type LoginFormPropsType = {
   isLoginPopupOpen: boolean;
@@ -72,23 +72,22 @@ const LoginForm = (props: LoginFormPropsType) => {
             />
             <CheckBoxTitle>로그인 유지</CheckBoxTitle>
           </LoginMaintainWrapper>
-          <Button backgroundColor="transparent">
+          <Button buttonType={ButtonType.TRANSPARENT}>
             <ButtonGreyContent>비밀번호 찾기</ButtonGreyContent>
           </Button>
         </FirstActionWrapper>
-        <Button
-          backgroundColor="#000000"
-          width="400px"
-          height="60px"
-          radius="15px"
-        >
+        <Button 
+          buttonType={ButtonType.DEFAULT} 
+          rounded 
+          style={{backgroundColor: '#000000'}}
+          >
           <ButtonWhiteContent>이메일로 로그인</ButtonWhiteContent>
         </Button>
         <SecondActionWrapper>
-          <Button backgroundColor="transparent">
+          <Button buttonType={ButtonType.TRANSPARENT}>
             <ButtonBlackContent>회원가입</ButtonBlackContent>
           </Button>
-          <Button backgroundColor="transparent">
+          <Button buttonType={ButtonType.TRANSPARENT}>
             <ButtonBlackContent>이메일 찾기</ButtonBlackContent>
           </Button>
         </SecondActionWrapper>
