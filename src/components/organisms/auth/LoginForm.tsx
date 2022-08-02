@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Button, {ButtonType} from "@components/atoms/Button";
 import CheckBox from "@components/atoms/CheckBox";
-import InputForm from "@components/atoms/InputForm";
+import _InputForm, {InputFormProps} from "@components/atoms/InputForm";
 import Spacer from "@components/atoms/Spacer";
 import Facebook from "/image/btn_facebook.png";
 import Instagram from "/image/btn_instagram.png";
@@ -14,17 +14,16 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilState } from "recoil";
 import { loginPopupState } from "@src/stores/Auth";
 
-type LoginFormPropsType = {
+export interface LoginFormProps {
   isLoginPopupOpen: boolean;
 };
 
-const LoginForm = (props: LoginFormPropsType) => {
-  const { isLoginPopupOpen } = props;
+export default function LoginForm ({
+  isLoginPopupOpen
+}: LoginFormProps) {
 
-  const [loginPopupOpen, setLoginPopupOpen] =
-    useRecoilState<boolean>(loginPopupState);
+  const [loginPopupOpen, setLoginPopupOpen] = useRecoilState<boolean>(loginPopupState);
   const [isChecked, setIsChecked] = useState<boolean>(false);
-
   const loginPopupRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   useEffect(() => {
@@ -47,24 +46,18 @@ const LoginForm = (props: LoginFormPropsType) => {
       >
         <ExitIcon onClick={() => setLoginPopupOpen(false)} icon={faXmark} />
         <Title>로그인</Title>
-        <form>
-          <InputForm
-            placeholder="이메일을 입력하세요."
-            width="400px"
-            height="56px"
-            tabIndex={1}
-          />
-          <Spacer size={16} />
-          <InputForm
-            placeholder="비밀번호를 입력하세요."
-            width="400px"
-            height="56px"
-            type="password"
-            autoComplete={"off"}
-            tabIndex={2}
-          />
-        </form>
-        <FirstActionWrapper>
+        <Description>이메일</Description>
+        <InputForm
+          placeholder="example@email.com"
+          tabIndex={1}
+        />
+        <Spacer size={16}/>
+        <Description>비밀번호</Description>
+        <InputForm
+          placeholder="password"
+          tabIndex={2}
+        />
+        {/* <FirstActionWrapper>
           <LoginMaintainWrapper>
             <CheckBox
               checked={isChecked}
@@ -96,13 +89,11 @@ const LoginForm = (props: LoginFormPropsType) => {
           <Icon src={Naver} alt={"네이버 간편 로그인"} />
           <Icon src={Kakao} alt={"카카오 간편 로그인"} />
           <Icon src={Google} alt={"구글 간편 로그인"} />
-          <Icon src={Facebook} alt={"페이스북 간편 로그인"} />
-          <Icon src={Instagram} alt={"인스타그램 간편 로그인"} />
-        </OAuthWrapper>
+        </OAuthWrapper> */}
       </Container>
     </>
   );
-};
+}
 
 const LoginFormLayout = styled.div`
   position: fixed;
@@ -110,37 +101,55 @@ const LoginFormLayout = styled.div`
   left: 0;
   width: 100vw;
   height: 100%;
-  background-color: ${({ theme }) => theme.color.background};
+  background-color: ${({ theme }) => theme.color.login_background};
   z-index: 10000;
 `;
 
 const Container = styled.div<{ isLoginPopupOpen: boolean }>`
   ${(props) =>
-    props.isLoginPopupOpen ? props.theme.mixin.flexCenter() : `display: none;`}
+    props.isLoginPopupOpen ? props.theme.mixin.flexCenter() : `display: none;`
+    }  
   flex-direction: column;
+  justify-content: flex-start;
   position: relative;
-  height: 750px;
-  width: 500px;
+  height: 515px;
+  width: 360px;
+  border-radius: 30px;
   z-index: 10000;
-  background-color: ${({ theme }) => theme.color.light};
-  padding: 40px 50px;
+  padding: 30px 30px;
+  background-color: ${({ theme }) => theme.color.login_background};
 `;
 
 const ExitIcon = styled(FontAwesomeIcon)`
   position: absolute;
   cursor: pointer;
-  width: 32px;
-  height: 32px;
-  right: 10px;
-  top: 10px;
+  width: 18px;
+  height: 18px;
+  right: 30px;
+  top: 30px;
+  color: ${({ theme }) => theme.color.white}; 
 `;
 
 const Title = styled.h1`
-  ${({ theme }) => theme.mixin.fontSize(34, theme.color.main)};
-  margin-bottom: 70px;
-  font-weight: 700;
-`;
+  ${({ theme }) => theme.mixin.fontSize(24, theme.color.white)};
+  width: 67px;
+  height: 28px;
+  margin-bottom: 20px;
+  `;
 
+const InputForm = styled.form`
+  border-bottom: 1px solid white;
+  width: 300px;
+  height: 40px;
+  background-color: ${({theme}) => theme.color.transparent};
+`
+
+const Description = styled.div`
+  ${({ theme }) => theme.mixin.fontSize(15, theme.color.white)};
+  align-self: flex-start;
+  font-weight: 700;
+  height: 18px;
+`
 const FirstActionWrapper = styled.span`
   display: flex;
   align-items: center;
@@ -195,7 +204,7 @@ const OAuthWrapper = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 27px;
 `;
 
@@ -204,4 +213,3 @@ const Icon = styled.img`
   height: 50px;
 `;
 
-export default LoginForm;
